@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrielOS — Doctrine & Methodology</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --bg-primary: #faf8f6;
+      --bg-secondary: #f4f2f0;
+      --bg-tertiary: #efefed;
+      --text-primary: #1a1a1a;
+      --text-secondary: #4a4a4a;
+      --text-tertiary: #7a7a7a;
+      --border: #ddd9d4;
+      --accent: #1a365d;
+      --accent-alt: #d4603f;
+      --success: #2d7a4a;
+    }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+    
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+    
+    /* === HEADER === */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 24px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 248, 246, 0.95);
+      backdrop-filter: blur(8px);
+    }
+    
+    .header-content { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+    }
+    
+    .logo { 
+      font-family: 'Cormorant', serif;
+      font-size: 14px; 
+      font-weight: 700; 
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+    
+    .nav { 
+      display: flex; 
+      gap: 40px; 
+    }
+    
+    .nav a { 
+      font-size: 12px; 
+      color: var(--text-secondary); 
+      text-decoration: none; 
+      transition: color 0.2s;
+      letter-spacing: 0.5px;
+    }
+    
+    .nav a:hover { color: var(--accent); }
+    
+    /* === SECTION STRUCTURE === */
+    section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .section-label {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    
+    section h1 {
+      font-family: 'Cormorant', serif;
+      font-size: 52px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+    }
+    
+    section h2 {
+      font-family: 'Cormorant', serif;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 32px;
+      color: var(--text-primary);
+    }
+    
+    section h3 {
+      font-family: 'Cormorant', serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+    
+    .intro-text {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 32px;
+      max-width: 800px;
+    }
+    
+    /* === PROBLEM SECTION === */
+    .problem-section {
+      max-width: 900px;
+    }
+    
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-top: 48px;
+    }
+    
+    .problem-item h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .problem-item h4:before {
+      content: "—";
+      color: var(--accent-alt);
+      font-weight: 700;
+      font-size: 20px;
+    }
+    
+    .problem-item p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+    
+    /* === PHILOSOPHY SECTION === */
+    .philosophy-section {
+      background: white;
+      padding: 60px;
+      border: 1px solid var(--border);
+    }
+    
+    .law-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      margin-top: 48px;
+    }
+    
+    .law-card {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .law-number {
+      font-family: 'IBM+Plex+Mono', monospace;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 16px;
+      opacity: 0.6;
+    }
+    
+    .law-card h3 {
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+    
+    .law-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+    
+    /* === METHODOLOGY SECTION === */
+    .methodology-intro {
+      max-width: 800px;
+      margin-bottom: 48px;
+    }
+    
+    .methodology-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+    
+    .methodology-step {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .step-number {
+      font-family: 'IBM+Plex+Mono', monospace;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 20px;
+      opacity: 0.6;
+    }
+    
+    .methodology-step h3 {
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+    
+    .methodology-step p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+    
+    /* === APPLICATION SECTION === */
+    .application-section {
+      max-width: 900px;
+    }
+    
+    .application-text {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+    
+    .application-text strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    
+    .application-link {
+      display: inline-block;
+      margin-top: 24px;
+      font-size: 14px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+    
+    .application-link:hover {
+      color: var(--accent-alt);
+    }
+    
+    /* === CTA === */
+    .cta-section {
+      text-align: center;
+      padding: 80px 0;
+    }
+    
+    .cta-section h2 {
+      margin-bottom: 24px;
+    }
+    
+    .cta-section p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+    }
+    
+    .button {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .button:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+    
+    .button.secondary {
+      background: transparent;
+      color: var(--accent);
+    }
+    
+    .button.secondary:hover {
+      background: var(--accent);
+      color: white;
+    }
+    
+    /* === FOOTER === */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    
+    footer p {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.5px;
+    }
+    
+    /* === RESPONSIVE === */
+    @media (max-width: 1024px) {
+      .problem-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      
+      .law-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .methodology-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .container { padding: 0 24px; }
+      section { padding: 60px 0; }
+      
+      section h1 { font-size: 36px; }
+      section h2 { font-size: 32px; }
+      
+      .philosophy-section {
+        padding: 40px;
+      }
+      
+      .nav { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="header-content">
+      <div class="logo">◆ BRIELOS</div>
+      <nav class="nav">
+        <a href="https://brielos.com/">Home</a>
+        <a href="https://brielos.com/deployments">Deployments</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- === PROBLEM SECTION === -->
+<section class="problem-section">
+  <div class="container">
+    <span class="section-label">The Reality</span>
+    <h1>Organizational noise is structural, not motivational.</h1>
+    
+    <p class="intro-text">Most organizational dysfunction is framed as a culture problem, a leadership problem, or a talent problem. Often, it is simpler than that. The system was designed for a previous reality. What once created momentum now produces distortion.</p>
+    
+    <div class="problem-grid">
+      <div class="problem-item">
+        <h4>The Paradox</h4>
+        <p>More effort yielding less velocity. Staff work harder. Results stall. The problem is not motivation — it is architecture.</p>
+      </div>
+      
+      <div class="problem-item">
+        <h4>The Amnesia</h4>
+        <p>Solving the same friction points quarterly. You fix the symptom, not the distortion. The problem resurfaces because the structure never changed.</p>
+      </div>
+      
+      <div class="problem-item">
+        <h4>The Drift</h4>
+        <p>Strategy dissolving as it moves toward execution. Clear at the top. Confused at the edges. The translation layer is broken.</p>
+      </div>
+      
+      <div class="problem-item">
+        <h4>The Dependency</h4>
+        <p>Critical paths that fail without specific individual intervention. No one person should be irreplaceable. A broken system creates heroic dependency.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === PHILOSOPHY SECTION === -->
+<section>
+  <div class="container">
+    <span class="section-label">How We Think</span>
+    <h2>Three Laws of Structural Integrity</h2>
+    
+    <p class="intro-text">Every organizational failure is a structural failure disguised as a human one. We do not intervene at the layer of effort. We rebuild the foundation upon which effort is spent.</p>
+    
+    <div class="philosophy-section">
+      <div class="law-grid">
+        <div class="law-card">
+          <div class="law-number">01</div>
+          <h3>Substrate Primacy</h3>
+          <p>Architecture dictates outcome. You cannot culture your way out of a broken system. Fix the foundation first. Clarity follows.</p>
+        </div>
+        
+        <div class="law-card">
+          <div class="law-number">02</div>
+          <h3>Signal-to-Noise Ratio</h3>
+          <p>Complexity is a mask for distortion. A high-integrity system requires aggressive distillation of noise until only the clear signal remains. If a process requires heroic effort, the architecture is broken.</p>
+        </div>
+        
+        <div class="law-card">
+          <div class="law-number">03</div>
+          <h3>Structural Autonomy</h3>
+          <p>A system is not a solution unless it is autonomous. We build logic that functions independently of personality, motivation, or manual oversight. Zero heroic effort required.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === METHODOLOGY SECTION === -->
+<section>
+  <div class="container">
+    <span class="section-label">How We Work</span>
+    <h2>Clear Signal Design™</h2>
+    
+    <div class="methodology-intro">
+      <p class="intro-text">Every ARKE system follows the same diagnostic and deployment logic. We map distortion. We eliminate noise. We deploy autonomous infrastructure.</p>
+    </div>
+    
+    <div class="methodology-grid">
+      <div class="methodology-step">
+        <div class="step-number">01</div>
+        <h3>Diagnosis</h3>
+        <p>Identify the fractured substrate. Map where signal breaks — not surface symptoms, but structural distortion. Where does noise enter the system?</p>
+      </div>
+      
+      <div class="methodology-step">
+        <div class="step-number">02</div>
+        <h3>Distillation</h3>
+        <p>Eliminate noise aggressively. Preserve only what matters. Build qualification logic, routing rules, and decision criteria from operational reality, not guesswork.</p>
+      </div>
+      
+      <div class="methodology-step">
+        <div class="step-number">03</div>
+        <h3>Deployment</h3>
+        <p>Launch autonomous systems. The architecture works independently of personality or manual oversight. Decision-making becomes reliable. Scale happens without heroic effort.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === APPLICATION SECTION === -->
+<section class="application-section">
+  <div class="container">
+    <span class="section-label">In Practice</span>
+    <h2>How This Shows Up in ARKE</h2>
+    
+    <p class="application-text">
+      <strong>ARKE | Law</strong> applies this thinking to legal intake. The distortion: high-value cases queue alongside dead-end submissions. The diagnosis: intake structure conflates volume with value. The distillation: build scoring logic that separates signal from noise. The deployment: qualified cases surface automatically in priority order.
+    </p>
+    
+    <p class="application-text">
+      <strong>ARKE | Bid</strong> applies it to estimate qualification. The distortion: estimators spend time on low-margin requests while high-value work waits. The diagnosis: bid routing has no qualification layer. The distillation: build request scoring that surfaces fit and margin instantly. The deployment: urgent, high-margin work routes first. Throughput scales without adding staff.
+    </p>
+    
+    <p class="application-text">
+      <strong>ARKE | Dispatch</strong> applies it to field service routing. The distortion: dispatching is manual and sequential. Urgent work gets delayed. The diagnosis: routing decisions lack automation and priority structure. The distillation: build scoring that captures urgency, skill fit, and geography. The deployment: jobs auto-route. Technicians work. Completed jobs per person increases without adding headcount.
+    </p>
+    
+    <p class="application-text">
+      In each case, the methodology is identical. <strong>Diagnosis → Distillation → Deployment.</strong> The application is vertical-specific. The thinking is universal.
+    </p>
+    
+    <a href="https://brielos.com/deployments" class="application-link">Explore ARKE Deployments →</a>
+  </div>
+</section>
+
+<!-- === CTA === -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Ready to diagnose structural friction?</h2>
+    <p>Start with a diagnostic conversation. We map your biggest distortion point and show you what's possible when you fix the foundation.</p>
+    <div style="display: flex; gap: 16px; justify-content: center;">
+      <a href="mailto:hello@brielstrategies.com" class="button">Book Diagnostic</a>
+      <a href="https://brielos.com/" class="button secondary">Back to Home</a>
+    </div>
+  </div>
+</section>
+
+<!-- === FOOTER === -->
+<footer>
+  <div class="container">
+    <p>© 2026 Briel Strategies LLC | BrielOS | Built on Clear Signal Design™</p>
+  </div>
+</footer>
+
+</body>
+</html>

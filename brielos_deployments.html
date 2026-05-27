@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARKE Deployments — BrielOS</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --bg-primary: #faf8f6;
+      --bg-secondary: #f4f2f0;
+      --text-primary: #1a1a1a;
+      --text-secondary: #4a4a4a;
+      --text-tertiary: #7a7a7a;
+      --border: #ddd9d4;
+      --accent: #1a365d;
+      --accent-alt: #d4603f;
+      --success: #2d7a4a;
+    }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+    
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+    
+    /* === HEADER === */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 24px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 248, 246, 0.95);
+      backdrop-filter: blur(8px);
+    }
+    
+    .header-content { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+    }
+    
+    .logo { 
+      font-family: 'Cormorant', serif;
+      font-size: 14px; 
+      font-weight: 700; 
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+    
+    .nav { 
+      display: flex; 
+      gap: 40px; 
+    }
+    
+    .nav a { 
+      font-size: 12px; 
+      color: var(--text-secondary); 
+      text-decoration: none; 
+      transition: color 0.2s;
+      letter-spacing: 0.5px;
+    }
+    
+    .nav a:hover { color: var(--accent); }
+    
+    /* === HERO === */
+    .hero {
+      padding: 100px 0 80px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .section-label {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 24px;
+      font-weight: 600;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    
+    .hero h1 {
+      font-family: 'Cormorant', serif;
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+      letter-spacing: -1px;
+    }
+    
+    .hero h1 .highlight {
+      color: var(--accent);
+    }
+    
+    .hero-subhead {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-bottom: 48px;
+      font-weight: 400;
+      line-height: 1.7;
+    }
+    
+    /* === DEPLOYMENTS GRID === */
+    .deployments-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .deployment-card {
+      padding: 48px 32px;
+      background: white;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .deployment-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 8px 24px rgba(26, 54, 93, 0.08);
+    }
+    
+    .deployment-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 20px;
+    }
+    
+    .deployment-card h3 {
+      font-family: 'Cormorant', serif;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+    
+    .deployment-subtitle {
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    
+    .deployment-description {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 28px;
+      flex-grow: 1;
+    }
+    
+    .deployment-link {
+      font-size: 12px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+      align-self: flex-start;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .deployment-link:hover {
+      color: var(--accent-alt);
+    }
+    
+    .deployment-link span {
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+    
+    .deployment-card:hover .deployment-link span {
+      transform: translateX(4px);
+    }
+    
+    /* === STATUS BADGES === */
+    .status-badge {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 2px;
+      margin-bottom: 16px;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    
+    .status-live {
+      background: rgba(45, 122, 74, 0.1);
+      color: var(--success);
+    }
+    
+    .status-coming {
+      background: rgba(212, 96, 63, 0.1);
+      color: var(--accent-alt);
+    }
+    
+    /* === OVERVIEW SECTION === */
+    .overview {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .overview-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .overview-content h2 {
+      font-family: 'Cormorant', serif;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 32px;
+      color: var(--text-primary);
+    }
+    
+    .overview-text {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+    
+    .overview-text strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    
+    /* === CTA SECTION === */
+    .cta-section {
+      padding: 80px 0;
+      text-align: center;
+    }
+    
+    .cta-section h2 {
+      font-family: 'Cormorant', serif;
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+    
+    .cta-section p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+    
+    .button {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .button:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+    
+    .button.secondary {
+      background: transparent;
+      color: var(--accent);
+    }
+    
+    .button.secondary:hover {
+      background: var(--accent);
+      color: white;
+    }
+    
+    /* === FOOTER === */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    
+    footer p {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.5px;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    
+    /* === RESPONSIVE === */
+    @media (max-width: 1024px) {
+      .deployments-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .container { padding: 0 24px; }
+      .hero { padding: 60px 0 60px; }
+      .deployments-grid { padding: 60px 0; gap: 24px; }
+      .overview { padding: 60px 0; }
+      .cta-section { padding: 60px 0; }
+      
+      .hero h1 { font-size: 36px; }
+      .deployment-card h3 { font-size: 20px; }
+      .overview-content h2 { font-size: 32px; }
+      .cta-section h2 { font-size: 32px; }
+      
+      .nav { gap: 20px; }
+      .button-group { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="header-content">
+      <div class="logo">◆ BRIELOS</div>
+      <nav class="nav">
+        <a href="/">Home</a>
+        <a href="/brielos_doctrine_methodology.html">Doctrine</a>
+        <a href="/brielos_deployments.html">Deployments</a>
+        <a href="mailto:hello@brielstrategies.com">Contact</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- === HERO === -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <span class="section-label">ARKE Deployments</span>
+      <h1>Four systems. One <span class="highlight">architecture.</span></h1>
+      <p class="hero-subhead">ARKE is deployed across three operational domains: intake qualification, estimate qualification, and job dispatch. Each system operates independently. All three share the same structural logic.</p>
+    </div>
+  </div>
+</section>
+
+<!-- === DEPLOYMENTS GRID === -->
+<section class="deployments-grid">
+  <div class="container" style="grid-column: 1 / -1;">
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px;">
+
+      <!-- ARKE | LAW -->
+      <div class="deployment-card" id="law">
+        <div class="status-badge status-live">Live</div>
+        <div class="deployment-icon">⚖</div>
+        <h3>ARKE | Law</h3>
+        <div class="deployment-subtitle">Case Intake Qualification</div>
+        <p class="deployment-description">Transforms raw intake into a prioritized pipeline. Cases auto-score for urgency, complexity, and revenue potential. Staff review qualified matters. Noise is eliminated before human review.</p>
+        <a href="mailto:hello@brielstrategies.com?subject=ARKE%20Law%20Demo" class="deployment-link"><span>Request Demo →</span></a>
+      </div>
+      
+      <!-- ARKE | BID -->
+      <div class="deployment-card" id="bid">
+        <div class="status-badge status-live">Live</div>
+        <div class="deployment-icon">◇</div>
+        <h3>ARKE | Bid</h3>
+        <div class="deployment-subtitle">Estimate Qualification</div>
+        <p class="deployment-description">Scores requests for project value and margin at intake. High-margin work surfaces first. Estimators focus on profitable work. Close rate and average project margin improve without headcount increase.</p>
+        <a href="mailto:hello@brielstrategies.com?subject=ARKE%20Bid%20Demo" class="deployment-link"><span>Request Demo →</span></a>
+      </div>
+      
+      <!-- ARKE | DISPATCH -->
+      <div class="deployment-card" id="dispatch">
+        <div class="status-badge status-coming">Coming Soon</div>
+        <div class="deployment-icon">→</div>
+        <h3>ARKE | Dispatch</h3>
+        <div class="deployment-subtitle">Service Request Routing</div>
+        <p class="deployment-description">Auto-scores service requests for urgency and dispatch priority. Routes jobs to technicians by geography, skill, and availability. Completed work per technician increases. Dispatch becomes autonomous.</p>
+        <a href="mailto:hello@brielstrategies.com?subject=ARKE%20Dispatch%20Interest" class="deployment-link"><span>Join Waitlist →</span></a>
+      </div>
+
+      <!-- ARKE | PARTNER -->
+      <div class="deployment-card" id="partner">
+        <div class="status-badge status-live">Live</div>
+        <div class="deployment-icon">
+          <svg class="glyph" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="26" y1="26" x2="36" y2="16"/>
+              <line x1="26" y1="26" x2="16" y2="16"/>
+              <line x1="26" y1="26" x2="36" y2="36"/>
+              <line x1="26" y1="26" x2="16" y2="36"/>
+              <circle cx="36" cy="16" r="1.5" fill="currentColor"/>
+              <circle cx="16" cy="16" r="1.5" fill="currentColor"/>
+              <circle cx="36" cy="36" r="1.5" fill="currentColor"/>
+              <circle cx="16" cy="36" r="1.5" fill="currentColor"/>
+            </g>
+          </svg>
+        </div>
+        <h3>ARKE | Partner</h3>
+        <div class="deployment-subtitle">Channel Partner Infrastructure</div>
+        <p class="deployment-description">Partner dashboards and collaborative intelligence tools for reseller networks. Enables partners to operate autonomously at scale — without expanding central operations.</p>
+        <a href="mailto:hello@brielstrategies.com?subject=ARKE%20Partner%20Pilot" class="deployment-link"><span>Explore Pilot →</span></a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- === OVERVIEW === -->
+<section class="overview">
+  <div class="container">
+    <div class="overview-content">
+      <span class="section-label">How ARKE Works</span>
+      <h2>One Principle. Three Implementations.</h2>
+      
+      <p class="overview-text">Each ARKE system follows the same structural design: <strong>eliminate noise at intake, preserve signal, let clarity drive prioritization.</strong></p>
+      
+      <p class="overview-text">The common architecture means:</p>
+      
+      <p class="overview-text"><strong>Instant qualification.</strong> Items score on intake. No manual triage. No committee meetings. Scoring is transparent and repeatable.</p>
+      
+      <p class="overview-text"><strong>Autonomous routing.</strong> High-priority work surfaces automatically. Staff attention follows signal, not opinion. Workload distribution becomes structural, not political.</p>
+      
+      <p class="overview-text"><strong>Scalable without headcount.</strong> As volume increases, the system's filtering gets sharper. More cases mean better scoring. Better scoring means higher close rates without adding staff.</p>
+    </div>
+  </div>
+</section>
+
+<!-- === CTA === -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Ready to deploy structural clarity?</h2>
+    <p>Start with a diagnostic. We audit your intake process, identify structural friction, and design a custom deployment plan.</p>
+    <div class="button-group">
+      <a href="mailto:hello@brielstrategies.com" class="button">Book Diagnostic</a>
+      <a href="/" class="button secondary">Back to Home</a>
+    </div>
+  </div>
+</section>
+
+<!-- === FOOTER === -->
+<footer>
+  <div class="container">
+    <p>© 2026 Briel Strategies LLC | BRIELOS | Built on Clear Signal Design™</p>
+  </div>
+</footer>
+
+</body>
+</html>
