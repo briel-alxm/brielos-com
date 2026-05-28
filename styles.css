@@ -1,0 +1,200 @@
+/* ============================================================
+   brielos.com UI kit — namespaced styles (.bc-*)
+   Surfaces: vellum + obsidian footer; serif-led editorial.
+   ============================================================ */
+
+.bc-app {
+  background: var(--vellum);
+  color: var(--obsidian-ink);
+  font-family: var(--font-body);
+  min-height: 100vh;
+}
+
+.bc-container { max-width: 1200px; margin: 0 auto; padding: 0 56px; }
+
+/* ── Header ─────────────────────────────────────────────── */
+.bc-header {
+  position: sticky; top: 0; z-index: 100;
+  padding: 22px 0;
+  background: rgba(250, 247, 240, 0.94);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+.bc-header-row { display: flex; justify-content: space-between; align-items: center; }
+.bc-logo { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; text-decoration: none; }
+.bc-logo-mark { font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--storm-teal); line-height: 1; }
+.bc-logo-word { font-family: var(--font-serif); font-size: 15px; font-weight: 700; letter-spacing: 0.1em; color: var(--storm-teal); }
+.bc-nav { display: flex; gap: 36px; }
+.bc-nav-link {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--fg-3); text-decoration: none;
+  cursor: pointer; transition: color 200ms var(--ease-out);
+}
+.bc-nav-link:hover, .bc-nav-link.is-active { color: var(--storm-teal); }
+
+/* ── Hero ───────────────────────────────────────────────── */
+.bc-hero { padding: 110px 0 90px; border-bottom: 1px solid var(--rule); }
+.bc-hero-inner { max-width: 820px; margin: 0 auto; text-align: center; }
+.bc-eyebrow {
+  display: inline-block; font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--oxide-copper); margin-bottom: 28px; font-weight: 500;
+}
+.bc-hero-title {
+  font-family: var(--font-serif); font-weight: 500;
+  font-size: clamp(40px, 5vw, 60px); line-height: 1.1;
+  letter-spacing: -0.015em; color: var(--obsidian-ink);
+  margin: 0 0 22px;
+}
+.bc-hero-highlight { font-style: italic; color: var(--storm-teal); }
+.bc-hero-lead {
+  font-family: var(--font-serif); font-style: italic; font-weight: 300;
+  font-size: 19px; line-height: 1.75; color: var(--soft-graphite);
+  max-width: 640px; margin: 0 auto;
+}
+
+/* ── ARKE grid ──────────────────────────────────────────── */
+.bc-arke-grid { padding: 80px 0; border-bottom: 1px solid var(--rule); }
+.bc-arke-grid-inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+@media (max-width: 1080px) { .bc-arke-grid-inner { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px)  { .bc-arke-grid-inner { grid-template-columns: 1fr; } }
+
+.bc-arke-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--rule);
+  padding: 36px 28px 30px;
+  display: flex; flex-direction: column;
+  transition: border-color 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
+}
+.bc-arke-card:hover {
+  border-color: var(--storm-teal);
+  box-shadow: 0 8px 24px rgba(17, 19, 21, 0.06);
+}
+.bc-arke-icon { color: var(--deep-forest); margin-bottom: 20px; }
+.bc-glyph { width: 42px; height: 42px; }
+.bc-arke-title {
+  font-family: var(--font-serif); font-weight: 600;
+  font-size: 26px; color: var(--obsidian-ink);
+  margin: 0 0 6px; line-height: 1.2;
+}
+.bc-arke-sub {
+  font-family: var(--font-mono); font-weight: 600;
+  font-size: 11px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--storm-teal);
+  margin-bottom: 18px;
+}
+.bc-arke-desc {
+  font-family: var(--font-body); font-size: 14px;
+  line-height: 1.7; color: var(--soft-graphite);
+  flex-grow: 1; margin: 0 0 24px;
+}
+.bc-arke-link {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--storm-teal); text-decoration: none;
+  align-self: flex-start; cursor: pointer;
+  transition: color 200ms var(--ease-out);
+}
+.bc-arke-link span { display: inline-block; transition: transform 300ms var(--ease-out); }
+.bc-arke-link:hover { color: var(--oxide-copper); }
+.bc-arke-card:hover .bc-arke-link span { transform: translateX(4px); }
+
+/* ── Badges ─────────────────────────────────────────────── */
+.bc-badge {
+  position: absolute; top: 24px; right: 24px;
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--font-mono); font-weight: 600; font-size: 9px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 4px 8px; border-radius: 2px;
+}
+.bc-badge-dot { width: 5px; height: 5px; border-radius: 999px; background: currentColor; }
+.bc-badge-live { background: rgba(31, 59, 52, 0.08); color: var(--deep-forest); }
+.bc-badge-coming { background: rgba(154, 106, 74, 0.10); color: var(--oxide-copper); }
+
+/* ── Editorial section (label rail) ─────────────────────── */
+.bc-section {
+  padding: 90px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.bc-section--alt { background: var(--bone-white-2); }
+.bc-section > .bc-container {
+  display: grid; grid-template-columns: 160px 1fr; gap: 60px;
+}
+.bc-section-rail { display: flex; flex-direction: column; gap: 8px; padding-top: 10px; }
+.bc-section-num {
+  font-family: var(--font-mono); font-weight: 600; font-size: 12px;
+  letter-spacing: 0.22em; color: var(--ether-gold);
+}
+.bc-section-num-label {
+  font-family: var(--font-sans); font-size: 10px;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--ash-mauve);
+}
+.bc-section-body { max-width: 760px; }
+.bc-h2 {
+  font-family: var(--font-serif); font-weight: 500;
+  font-size: clamp(30px, 3.4vw, 40px); line-height: 1.2;
+  letter-spacing: -0.01em; color: var(--obsidian-ink); margin: 0 0 22px;
+}
+.bc-lead {
+  font-family: var(--font-serif); font-style: italic; font-weight: 300;
+  font-size: 19px; line-height: 1.75; color: var(--iron-slate);
+  margin: 0 0 40px; max-width: 640px;
+}
+
+/* ── Laws & methodology grids ──────────────────────────── */
+.bc-laws-grid, .bc-method-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+  margin-top: 28px;
+}
+.bc-law, .bc-method { display: flex; flex-direction: column; }
+.bc-law-num, .bc-method-num {
+  font-family: var(--font-mono); font-weight: 600;
+  font-size: 32px; color: var(--storm-teal);
+  opacity: 0.5; margin-bottom: 14px; line-height: 1;
+}
+.bc-law-title, .bc-method-title {
+  font-family: var(--font-serif); font-weight: 600; font-size: 19px;
+  margin: 0 0 12px; color: var(--obsidian-ink); line-height: 1.3;
+}
+.bc-law-body, .bc-method-body {
+  font-family: var(--font-body); font-size: 14px;
+  line-height: 1.75; color: var(--soft-graphite); margin: 0;
+}
+
+/* ── CTA ────────────────────────────────────────────────── */
+.bc-cta { padding: 90px 0; text-align: center; }
+.bc-cta-title { margin-bottom: 16px; }
+.bc-cta-body { margin: 0 auto 36px; }
+.bc-btn-group { display: inline-flex; gap: 14px; justify-content: center; }
+.bc-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 28px; border: 1px solid var(--obsidian-ink);
+  background: var(--obsidian-ink); color: var(--bone-white);
+  font-family: var(--font-mono); font-weight: 500; font-size: 11px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  cursor: pointer; transition: all 200ms var(--ease-out);
+}
+.bc-btn:hover { background: transparent; color: var(--obsidian-ink); }
+.bc-btn--sec { background: transparent; color: var(--obsidian-ink); }
+.bc-btn--sec:hover { background: var(--obsidian-ink); color: var(--bone-white); }
+
+/* ── Footer ─────────────────────────────────────────────── */
+.bc-footer {
+  background: var(--obsidian-ink); padding: 36px 0;
+  text-align: center;
+}
+.bc-footer p {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.16em; color: #B7B0A4; margin: 0;
+}
+
+/* ── Positioning page ───────────────────────────────────── */
+.bc-prose {
+  font-family: var(--font-body); font-size: 16px; line-height: 1.85;
+  color: var(--iron-slate);
+}
+.bc-prose p { margin: 0 0 22px; }
+.bc-prose strong { color: var(--obsidian-ink); font-weight: 600; }
+.bc-divider { height: 1px; background: var(--rule); margin: 36px 0; }
